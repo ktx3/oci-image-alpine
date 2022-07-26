@@ -1,7 +1,7 @@
 # This is free and unencumbered software released into the public domain.
 
 # Find new versions at https://www.alpinelinux.org/posts/
-ALPINE_VERSION ?= 3.16.0
+ALPINE_VERSION ?= 3.16.1
 
 # Optional variables
 ALPINE_ARCH ?= x86_64
