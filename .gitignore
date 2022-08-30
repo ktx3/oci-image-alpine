@@ -2,3 +2,5 @@
 
 *.asc
 *.tar.gz
+latest-releases.yaml
+version.lock

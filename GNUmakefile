@@ -1,7 +1,8 @@
 # This is free and unencumbered software released into the public domain.
 
-# Find new versions at https://www.alpinelinux.org/posts/
-ALPINE_VERSION ?= 3.16.1
+ifndef ALPINE_VERSION
+ALPINE_VERSION := $(shell $(SHELL) version.sh)
+endif
 
 # Optional variables
 ALPINE_ARCH ?= x86_64
@@ -21,7 +22,7 @@ build: BUILD_OPTS += --build-arg=ALPINE_ROOTFS=$(ALPINE_ROOTFS)
 build: verify
 
 clean:
-	rm -f -- $(wildcard *.asc *.tar.gz)
+	rm -f -- latest-releases.yaml version.lock $(wildcard *.asc *.tar.gz)
 
 verify: $(ALPINE_ROOTFS) $(ALPINE_ROOTFS_SIG)
 	$(GPG) --verify $(ALPINE_ROOTFS_SIG) $(ALPINE_ROOTFS)
