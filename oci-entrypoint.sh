@@ -77,6 +77,11 @@ else
     printf 'oci-entrypoint.sh: warning: setpriv not available or disabled\n' >&2
     if test 0 -eq "${#}"; then
         runuser -s "${SHELL:-/bin/sh}" -- "${USER_NAME:?}"
+    elif test -n "${LEGACY_RUNUSER:-}" || {
+        test -e /etc/redhat-release \
+        && grep -q -F -e 'CentOS release 6' -- /etc/redhat-release
+    }; then
+        runuser -- "${USER_NAME:?}" -c 'exec "${@}"' - "${@}"
     else
         runuser -u "${USER_NAME:?}" -- "${@}"
     fi

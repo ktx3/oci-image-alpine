@@ -20,6 +20,7 @@ The entrypoint reads configuration from `/etc/oci-entrypoint-config.sh` if it
 exists, or the following environment variables can be defined:
 
 - `DISABLE_SETPRIV`: do not use `setpriv` for dropping root privileges
+- `LEGACY_RUNUSER`: use old `runuser` syntax for dropping root privileges
 - `USER_NAME`: unprivileged user name, or `root` to disable (default: `user`)
 - `USER_UID`: unprivileged user UID (default: `1000`)
 - `USER_GID`: unprivileged user GID (default: same as UID)
