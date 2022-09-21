@@ -3,4 +3,4 @@
 # Configuration for oci-build.sh
 
 # Upgrade system packages in the base image
-UPGRADE=1
+: "${UPGRADE=1}"
