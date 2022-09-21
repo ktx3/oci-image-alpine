@@ -5,6 +5,9 @@
 
 set -e -u
 
+# Custom config
+! test -e /etc/oci-entrypoint-config.sh || . /etc/oci-entrypoint-config.sh
+
 # Default config
 : "${USER_NAME:=user}"
 : "${USER_UID:=1000}"
@@ -15,9 +18,6 @@ set -e -u
 : "${LANG:=C.UTF-8}"
 : "${LC_COLLATE:=C}"
 : "${TZ:=UTC}"
-
-# Custom config
-! test -e /etc/oci-entrypoint-config.sh || . /etc/oci-entrypoint-config.sh
 
 # Set up the unprivileged user
 if test root = "${USER_NAME:?}"; then
