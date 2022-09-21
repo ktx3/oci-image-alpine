@@ -16,13 +16,17 @@ IMAGE_VERSION ?= $(firstword $(subst ., ,$(ALPINE_VERSION)))
 include oci-build/oci-build.mk
 
 # Target recipes
-.PHONY: clean verify
+.PHONY: clean update verify
 
 build: BUILD_OPTS += --build-arg=ALPINE_ROOTFS=$(ALPINE_ROOTFS)
 build: verify
 
 clean:
 	rm -f -- latest-releases.yaml version.lock $(wildcard *.asc *.tar.gz)
+
+update:
+	rm -f -- version.lock
+	$(SHELL) version.sh
 
 verify: $(ALPINE_ROOTFS) $(ALPINE_ROOTFS_SIG)
 	$(GPG) --verify $(ALPINE_ROOTFS_SIG) $(ALPINE_ROOTFS)
