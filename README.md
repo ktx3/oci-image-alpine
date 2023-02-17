@@ -24,7 +24,7 @@ Verifying the minirootfs tarball requires the Alpine Linux GnuPG signing key:
 The following variables can be set to customize the build (see
 `oci-build/oci-build.mk` for other options):
 
-- `ALPINE_ARCH`: Alpine Linux architecture (only `x86_64` is expected to work)
+- `ALPINE_ARCH`: Alpine Linux architecture
 - `ALPINE_ROOTFS`: path to the downloaded minirootfs tarball
 - `ALPINE_ROOTFS_SIG`: path to the downloaded minirootfs detached signature
 - `ALPINE_URL`: Alpine Linux releases URL

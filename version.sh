@@ -13,7 +13,10 @@ if test -e version.lock; then
     exit 0
 fi
 
-: "${ALPINE_ARCH:=x86_64}"
+case "${ALPINE_ARCH:=$(uname -m)}" in
+    arm64) ALPINE_ARCH=aarch64;;
+esac
+
 : "${ALPINE_RELEASES_URL:=https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/${ALPINE_ARCH:?}/latest-releases.yaml}"
 
 curl \

@@ -1,11 +1,17 @@
 # This is free and unencumbered software released into the public domain.
 
+ifndef ALPINE_ARCH
+    export ALPINE_ARCH := $(shell uname -m)
+    ifeq "arm64" "$(ALPINE_ARCH)"
+        ALPINE_ARCH := aarch64
+    endif
+endif
+
 ifndef ALPINE_VERSION
 ALPINE_VERSION := $(shell $(SHELL) version.sh)
 endif
 
 # Optional variables
-ALPINE_ARCH ?= x86_64
 ALPINE_ROOTFS ?= alpine-minirootfs-$(ALPINE_VERSION)-$(ALPINE_ARCH).tar.gz
 ALPINE_ROOTFS_SIG ?= $(ALPINE_ROOTFS).asc
 ALPINE_URL ?= https://dl-cdn.alpinelinux.org/alpine/v$(basename $(ALPINE_VERSION))/releases/$(ALPINE_ARCH)
