@@ -48,9 +48,13 @@ elif id -u -- "${USER_NAME:?}" >/dev/null 2>&1; then
             -exec chown "${USER_UID:?}" '{}' +
     fi
 else
+    # Create new group
+    if ! getent group "${USER_GID:?}" >/dev/null; then
+        groupadd -g "${USER_GID:?}" -- "${USER_NAME:?}"
+    fi
+
     # Create new user (suppress warnings about existing home directory e.g.
     # when mounting volumes into it)
-    groupadd -g "${USER_GID:?}" -- "${USER_NAME:?}"
     useradd -m -g "${USER_GID:?}" -u "${USER_UID:?}" -- "${USER_NAME:?}" 2>/dev/null
 fi
 
