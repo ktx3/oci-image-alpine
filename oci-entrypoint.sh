@@ -56,6 +56,7 @@ else
     # Create new user (suppress warnings about existing home directory e.g.
     # when mounting volumes into it)
     useradd -m -g "${USER_GID:?}" -u "${USER_UID:?}" -- "${USER_NAME:?}" 2>/dev/null
+    chown -R -- "${USER_UID:?}:${USER_GID:?}" "${USER_HOME:?}" || :
 fi
 
 # Environment variables
