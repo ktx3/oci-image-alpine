@@ -6,8 +6,12 @@ ARG ALPINE_ROOTFS
 
 # Install and update Alpine Linux with oci-build
 ADD ["${ALPINE_ROOTFS}", "/"]
-COPY ["oci-build/oci-build.sh", "oci-entrypoint/oci-entrypoint.sh", "oci-build-config.sh", "packages.txt", "/tmp/"]
-RUN ["sh", "-x", "/tmp/oci-build.sh"]
+RUN \
+    --mount=target=/tmp,type=tmpfs \
+    --mount=target=/tmp/build,readwrite \
+    --mount=target=/tmp/build/oci-build.sh,source=oci-build/oci-build.sh \
+    --mount=target=/tmp/build/oci-entrypoint.sh,source=oci-entrypoint/oci-entrypoint.sh \
+    ["sh", "-x", "/tmp/build/oci-build.sh"]
 
 # Enable the custom entrypoint
 ENTRYPOINT ["/bin/sh", "/usr/local/bin/oci-entrypoint.sh"]
