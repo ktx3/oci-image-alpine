@@ -1,5 +1,6 @@
 ca-certificates
 coreutils
+findutils
 runuser
 shadow
 tzdata
